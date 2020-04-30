@@ -121,9 +121,11 @@ void ej3(){
 
     }
     //bubble_sotr_especial(&container[0],order);
-    for(int i = 0 ; i < container.size();i++)
-        bubble_sotr_especial(&container[i],order);
-
+    vector <int> temp_order;
+    for(int i = 0 ; i < container.size();i++) {
+        temp_order = order;
+        bubble_sotr_especial(&container[i], temp_order);
+    }
 
     for(auto vec: container){
         for(auto item: vec){
@@ -133,7 +135,7 @@ void ej3(){
 
 }
 
-int main() {
+void ej4(){
     int n;
     int row;
     int col;
@@ -153,15 +155,69 @@ int main() {
         for(int j = i ; j < row; j++){
             if(vec[i].compare(vec[j]) > 0){
                 std::swap(vec[i],vec[j]);
-                for(auto item:vec)
-                    cout<<item<<endl;
-                cout<<endl;
             }
         }
     }
 
     for(auto item:vec)
         cout<<item<<endl;
+}
 
+template <typename t>
+t sum_vector(vector<t> vec){
+    t temp = {};
+    for(auto item :vec){
+        temp += item;
+    }
+    return temp;
+}
+
+void ej5(){
+    int days;
+    bool bandera  = true;
+    stringstream ss;
+    string str;
+    int num;
+    vector<vector<int>*> urn;
+    cin>>days;
+    getchar();
+    while(days--){
+        getline(cin,str);
+        if(str == "0"){
+            bandera = false;
+            days++;
+        }
+        ss<<str;
+        if(bandera){
+            urn.push_back(new vector<int>);
+            while(ss >> num){
+                urn.back()->push_back(num);
+            }
+            urn.back()->erase(urn.back()->begin());
+        }
+        ss.clear();
+    }
+
+
+    int max = 0;
+    int min = sum_vector(*urn[0]);
+    int sum = 0;
+
+
+
+    for(auto item: urn){
+        sum = sum_vector(*item);
+        if(max < sum){
+            max = sum;
+        }
+        if(min > sum){
+            min = sum;
+        }
+    }
+    cout<< max - min;
+}
+
+int main() {
+    ej4();
     return 0;
 }
