@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <vector>
 #include <sstream>
+
 using namespace std;
 
 void funct(string temp){
@@ -41,7 +42,8 @@ void ejercico1(){
     }
 }
 
-void swap(int *a,int*b){
+template <typename t>
+void swap(t* a,t* b){
     auto temp = a;
     a = b;
     b = temp;
@@ -74,26 +76,58 @@ void ej2(){
     cout<<bubble_sotr(v);
 }
 
-int main() {
-   int n;
-    string s;
-    cin>> n ;
 
+void bubble_sotr_especial(vector<float> *vec, vector<int> order){
+    for(int i = 0 ; i < order.size();i++){
+        for(int j = i + 1; j < order.size() ;j++){
+            if(order[i]>order[j]){
+                swap(order[i],order[j]);
+                swap(vec->at(i),vec->at(j));
+            }
+        }
+    }
+
+}
+int main() {
+    int n;
+    string str;
+    int num;
+    stringstream ss;
+    cin>> n ;
+    vector<int> order;
+
+    getchar();
+    getchar();
+    getline(cin,str);
+    ss<<str;
+    while(ss >> num){
+        order.push_back(num);
+    }
+
+
+    vector<vector<float>> container;
+    vector<float> temp;
+    float num_2;
     while(n--){
-        getchar();
-        int int_arry[100], n = 1;
-        float f[100];
-        getline(cin,s);
-        stringstream ss;
-        ss << s;
-        while(ss >> int_arry[n])n++;
-        getline(cin,s);
         ss.clear();
-        ss << s;
-        n = 1;
-        while(ss >> f[int_arry[n]])n++;
-        for(int i= 1; i < n; i++)
-            cout <<f[i] << endl;
+        getline(cin,str);
+        ss<<str;
+        while(ss >> num_2){
+            temp.push_back(num_2);
+        }
+        container.push_back(temp);
+        temp.clear();
+
+    }
+    //bubble_sotr_especial(&container[0],order);
+    for(int i = 0 ; i < container.size();i++)
+        bubble_sotr_especial(&container[i],order);
+
+
+    for(auto vec: container){
+        for(auto item: vec){
+            cout<<item<<endl;
+        }
     }
 
 
