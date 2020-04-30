@@ -88,7 +88,8 @@ void bubble_sotr_especial(vector<float> *vec, vector<int> order){
     }
 
 }
-int main() {
+
+void ej3(){
     int n;
     string str;
     int num;
@@ -130,6 +131,37 @@ int main() {
         }
     }
 
+}
+
+int main() {
+    int n;
+    int row;
+    int col;
+    stringstream ss;
+    string str;
+    vector<string> vec;
+    cin>>n;
+    getchar();
+    cin>>col;
+    cin>>row;
+
+    for(int i = 0; i<row + 1;i++){
+        getline(cin,str);
+        vec.push_back(str);
+    }
+    for(int i = 0; i< row; i++){
+        for(int j = i ; j < row; j++){
+            if(vec[i].compare(vec[j]) > 0){
+                std::swap(vec[i],vec[j]);
+                for(auto item:vec)
+                    cout<<item<<endl;
+                cout<<endl;
+            }
+        }
+    }
+
+    for(auto item:vec)
+        cout<<item<<endl;
 
     return 0;
 }
