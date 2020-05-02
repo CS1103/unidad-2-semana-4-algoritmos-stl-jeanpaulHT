@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <vector>
 #include <sstream>
+#include <fstream>
+#include <map>
 
 using namespace std;
 
@@ -139,7 +141,6 @@ void ej4(){
     int n;
     int row;
     int col;
-    stringstream ss;
     string str;
     vector<string> vec;
     cin>>n;
@@ -152,8 +153,10 @@ void ej4(){
         vec.push_back(str);
     }
     for(int i = 0; i< row; i++){
-        for(int j = i ; j < row; j++){
-            if(vec[i].compare(vec[j]) > 0){
+        for(int j = i + 1 ; j < row; j++){
+            if(vec[i].compare(vec[j]) > 0 && j < row){
+                if(vec[j].compare(vec[j + 1]) == 0)
+                    std::swap(vec[j], vec[j + 1]);
                 std::swap(vec[i],vec[j]);
             }
         }
@@ -203,8 +206,6 @@ void ej5(){
     int min = sum_vector(*urn[0]);
     int sum = 0;
 
-
-
     for(auto item: urn){
         sum = sum_vector(*item);
         if(max < sum){
@@ -217,7 +218,41 @@ void ej5(){
     cout<< max - min;
 }
 
+float cost(map <char, int>mapa){
+    char c;
+    float costo = {};
+    fstream in("../ej6.txt");
+    while(in>>c){
+        if(mapa.count(c) > 0){
+            costo += mapa[c];
+        }
+    }
+    return costo/100;
+}
+
+void ej6(){
+
+    int test;
+    int keys;
+    int num;
+    char c;
+    float total_cost = {};
+    map<char, int> map;
+
+    cin>>test;
+    while(test--){
+        cin>>keys;
+        while(keys--){
+            cin>>c;
+            cin>>num;
+            map[c] = num;
+        }
+        getchar();
+        total_cost += cost(map);
+    }
+    cout<<total_cost;
+}
+
 int main() {
-    ej4();
     return 0;
 }
